@@ -1,42 +1,41 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const vin = localStorage.getItem("lastVin");
-  if (!vin) return showReminder("You have not selected any car yet. Please choose one from the homepage.");
-
   const supabaseUrl = 'https://vpvptaencowltpzjbygn.supabase.co';
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdnB0YWVuY293bHRwempieWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc5ODMxMjMsImV4cCI6MjA2MzU1OTEyM30.grB7PKIDE-5OqkYu1eIhFLQkYndSLy-t00wBLrstb7I'; // ←あなたのキー
   const { createClient } = supabase;
   const supabaseClient = createClient(supabaseUrl, supabaseKey);
   
+  document.addEventListener("DOMContentLoaded", async () => {
+    const vin = localStorage.getItem("lastVin");
+    if (!vin) return showReminder("You have not selected any car yet. Please choose one from the homepage.");
 
-  const { data: car, error } = await supabaseClient
-    .from('cars')
-    .select('*')
-    .eq('vin', vin)
-    .single();
+    const { data: car, error } = await supabaseClient
+      .from('cars')
+      .select('*')
+      .eq('vin', vin)
+      .single();
 
-  if (error || !car) {
-    console.error("Supabase fetch error:", error);
-    return showReminder("Error fetching car information.");
-  }
+    if (error || !car) {
+      console.error("Supabase fetch error:", error);
+      return showReminder("Error fetching car information.");
+    }
 
-  if (!car.available) return showReminder(`${car.brand} ${car.carModel} is no longer available.`);
+    if (!car.available) return showReminder(`${car.brand} ${car.carModel} is no longer available.`);
 
-  const mappedCar = {
-    vin: car.vin,
-    brand: car.brand,
-    carModel: car.car_model,
-    carType: car.car_type,
-    yearOfManufacture: car.year_of_manufacture,
-    fuelType: car.fuel_type,
-    mileage: car.mileage,
-    pricePerDay: car.price_per_day,
-    image: car.image,
-    available: car.available,
-    description: car.description,
-  };
-  showCarAndForm(mappedCar);
-  
-});
+    const mappedCar = {
+      vin: car.vin,
+      brand: car.brand,
+      carModel: car.car_model,
+      carType: car.car_type,
+      yearOfManufacture: car.year_of_manufacture,
+      fuelType: car.fuel_type,
+      mileage: car.mileage,
+      pricePerDay: car.price_per_day,
+      image: car.image,
+      available: car.available,
+      description: car.description,
+    };
+    showCarAndForm(mappedCar);
+    
+  });
 
 
 function showReminder(msg) {
