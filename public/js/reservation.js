@@ -4,9 +4,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const supabaseUrl = 'https://vpvptaencowltpzjbygn.supabase.co';
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdnB0YWVuY293bHRwempieWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc5ODMxMjMsImV4cCI6MjA2MzU1OTEyM30.grB7PKIDE-5OqkYu1eIhFLQkYndSLy-t00wBLrstb7I'; // ←あなたのキー
-  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+  const { createClient } = supabase;
+  const supabaseClient = createClient(supabaseUrl, supabaseKey);
+  
 
-  const { data: car, error } = await supabase
+  const { data: car, error } = await supabaseClient
     .from('cars')
     .select('*')
     .eq('vin', vin)
@@ -118,7 +120,7 @@ function setupForm(car) {
       orderDate
     };
   
-    const { error } = await supabase.from('orders').insert(data);
+    const { error } = await supabaseClient.from('orders').insert(data);
     if (error) {
       console.error("Supabase insert error:", error);
       alert("Failed to place reservation.");
