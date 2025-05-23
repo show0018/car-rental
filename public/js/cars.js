@@ -1,12 +1,10 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
 let cars = [];
 let currentCategory = null;
 let currentBrand = null;
 
 const supabaseUrl = 'https://vpvptaencowltpzjbygn.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdnB0YWVuY293bHRwempieWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc5ODMxMjMsImV4cCI6MjA2MzU1OTEyM30.grB7PKIDE-5OqkYu1eIhFLQkYndSLy-t00wBLrstb7I'; // ←あなたのキー
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 
 // const baseURL = window.location.origin.includes("localhost")
