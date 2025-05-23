@@ -53,6 +53,7 @@ supabase
       description: car.description,
     }));
 
+    // 🔥 Supabaseデータ取得完了後に検索や初期表示を実行
     const urlParams = new URLSearchParams(window.location.search);
     const initialKeyword = urlParams.get("search");
 
@@ -60,8 +61,10 @@ supabase
       searchInput.value = initialKeyword;
       triggerSearch(initialKeyword);
     } else {
-      displayCars();
+      displayCars(); // ← 初期表示
     }
+
+    // 🔒 UIフィルター（カテゴリやブランド）もこの後で有効にしたほうが安全（必要なら）
   });
 
 
