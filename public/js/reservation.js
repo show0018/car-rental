@@ -35,7 +35,7 @@ function showCarAndForm(car) {
 
   document.getElementById("main-content").innerHTML = `
     <div class="car-info">
-      <img src="./${car.image}" alt="${car.carModel}" width="300" height="180" style="display:block; margin: 0 auto 20px;" />
+      <img src="${car.image}" alt="${car.carModel}" width="300" height="180" style="display:block; margin: 0 auto 20px;" />
       <h2>${car.brand} ${car.carModel}</h2>
       <p>Year: ${car.yearOfManufacture} | Type: ${car.carType}</p>
       <p>Fuel: ${car.fuelType} | Mileage: ${car.mileage}</p>
