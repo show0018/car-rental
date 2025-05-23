@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Car for Rent</title>
+</head>
+<body>
+  <header>
+    <a href="index.html">
+      <img src="Images/logo.avif" alt="Logo" width="80">
+    </a>
+    <h1>Car Rental Service</h1>
+    <nav>
+      <ul>
+        <li><a class="active" href="index.html">Home</a></li>
+        <!-- Optional -->
+        <li><a href="reservation.html">Reservation</a></li>
+        <input type="text" id="search" placeholder="Search available cars">
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Available Cars for Rent</h2>
+
+    <div id="categories">
+      <!-- Vehicle Type -->
+      <div class="dropdown">
+        <button class="dropbtn">Vehicle Type</button>
+        <div class="dropdown-content">
+          <button onclick="filterCategory('SUV')">SUV</button>
+          <button onclick="filterCategory('Sedan')">Sedan</button>
+          <button onclick="filterCategory('Coupe')">Coupe</button>
+          <button onclick="filterCategory('Hatchback')">Hatchback</button>
+        </div>
+      </div>
+
+      <!-- Brand -->
+      <div class="dropdown">
+        <button class="dropbtn">Brand</button>
+        <div class="dropdown-content">
+          <button onclick="filterBrand('Toyota')">Toyota</button>
+          <button onclick="filterBrand('Honda')">Honda</button>
+          <button onclick="filterBrand('Mazda')">Mazda</button>
+          <button onclick="filterBrand('Nissan')">Nissan</button>
+          <button onclick="filterBrand('Ford')">Ford</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="product-list"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Car Rental Service</p>
+  </footer>
+
+  <script src="js/cars.js"></script>
+</body>
+</html>

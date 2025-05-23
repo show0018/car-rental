@@ -1,0 +1,253 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f8f8;
+  }
+  
+  header {
+    background-color: #004aad;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  header img {
+    height: 60px;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  nav input[type="text"] {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  main h2 {
+    color: #004aad;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  #categories {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropbtn {
+    background-color: #004aad;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    z-index: 1;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .dropdown-content button {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .dropdown-content button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  #product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: flex-start;
+  }
+  
+  .product {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    padding: 16px;
+    width: 260px;
+    text-align: center;
+  }
+  
+  .product img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  
+  .product h3 {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #222;
+  }
+  
+  .product p {
+    font-size: 14px;
+    margin: 4px 0;
+    color: #444;
+  }
+  
+  .product button {
+    margin-top: 10px;
+    padding: 10px 16px;
+    background-color: #004aad;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .product button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 50px;
+    padding: 1rem;
+  }
+
+  /* Modal background */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* Close button */
+.modal-content .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal-content .close:hover {
+  color: #000;
+}
+
+/* Modal heading */
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #1a4cc1;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+/* Form labels and inputs */
+#reservation-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#reservation-form label {
+  flex: 1 1 48%;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+#reservation-form input {
+  margin-top: 4px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Total price */
+#total-price {
+  font-weight: bold;
+  font-size: 18px;
+  color: #1a4cc1;
+}
+
+/* Submit button */
+#reservation-form button[type="submit"] {
+  margin-top: 20px;
+  background-color: #1a4cc1;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#reservation-form button[type="submit"]:hover {
+  background-color: #00349c;
+}
