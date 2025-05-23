@@ -210,22 +210,3 @@ body {
   opacity: 0.6;
   pointer-events: none; /* クリック防止 */
 }
-
-.suggestions {
-  background-color: white;
-  border: 1px solid #ccc;
-  position: absolute;
-  z-index: 1000;
-  max-height: 200px;
-  overflow-y: auto;
-  width: 200px;
-}
-
-.suggestion-item {
-  padding: 8px;
-  cursor: pointer;
-}
-
-.suggestion-item:hover {
-  background-color: #eee;
-}
