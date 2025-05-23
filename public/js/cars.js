@@ -1,15 +1,59 @@
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 let cars = [];
 let currentCategory = null;
 let currentBrand = null;
 
-const baseURL = window.location.origin.includes("localhost")
-  ? "http://localhost:3001"
-  : ""; // AWSでは同一オリジン
+const supabaseUrl = 'https://vpvptaencowltpzjbygn.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdnB0YWVuY293bHRwempieWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc5ODMxMjMsImV4cCI6MjA2MzU1OTEyM30.grB7PKIDE-5OqkYu1eIhFLQkYndSLy-t00wBLrstb7I'; // ←あなたのキー
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-fetch(`${baseURL}/api/cars`)
-  .then(response => response.json())
-  .then(data => {
-    cars = data;
+
+// const baseURL = window.location.origin.includes("localhost")
+//   ? "http://localhost:3001"
+//   : ""; // AWSでは同一オリジン
+
+// fetch(`${baseURL}/api/cars`)
+//   .then(response => response.json())
+//   .then(data => {
+//     cars = data;
+
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const initialKeyword = urlParams.get("search");
+
+//     if (initialKeyword) {
+//       searchInput.value = initialKeyword;
+//       triggerSearch(initialKeyword);
+//     } else {
+//       displayCars();
+//     }
+//   })
+//   .catch(error => {
+//     console.error("Error fetching cars:", error);
+//   });
+
+supabase
+  .from('cars')
+  .select('*')
+  .then(({ data, error }) => {
+    if (error) {
+      console.error("Error fetching cars:", error);
+      return;
+    }
+
+    cars = data.map(car => ({
+      vin: car.vin,
+      carType: car.car_type,
+      brand: car.brand,
+      carModel: car.car_model,
+      image: car.image,
+      yearOfManufacture: car.year_of_manufacture,
+      mileage: car.mileage,
+      fuelType: car.fuel_type,
+      available: car.available,
+      pricePerDay: car.price_per_day,
+      description: car.description,
+    }));
 
     const urlParams = new URLSearchParams(window.location.search);
     const initialKeyword = urlParams.get("search");
@@ -20,9 +64,6 @@ fetch(`${baseURL}/api/cars`)
     } else {
       displayCars();
     }
-  })
-  .catch(error => {
-    console.error("Error fetching cars:", error);
   });
 
 
