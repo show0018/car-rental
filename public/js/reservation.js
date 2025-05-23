@@ -1,25 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const vin = localStorage.getItem("lastVin");
   if (!vin) return showReminder("You have not selected any car yet. Please choose one from the homepage.");
 
-  const baseURL = window.location.origin.includes("localhost")
-    ? "http://localhost:3001"
-    : "";
+  const supabaseUrl = 'https://vpvptaencowltpzjbygn.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6...';  // ←安全に取り扱ってください
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-  fetch(`${baseURL}/api/cars/${vin}`)
-    .then(res => {
-      if (!res.ok) throw new Error("Car not found");
-      return res.json();
-    })
-    .then(car => {
-      if (car.available === 0) return showReminder(`${car.brand} ${car.carModel} is no longer available.`);
-      showCarAndForm(car); 
-    })
-    .catch(err => {
-      console.error("Fetch error:", err);
-      showReminder("Error fetching car information.");
-    });
+  const { data: car, error } = await supabase
+    .from('cars')
+    .select('*')
+    .eq('vin', vin)
+    .single();
+
+  if (error || !car) {
+    console.error("Supabase fetch error:", error);
+    return showReminder("Error fetching car information.");
+  }
+
+  if (!car.available) return showReminder(`${car.brand} ${car.carModel} is no longer available.`);
+
+  showCarAndForm(car);
 });
+
 
 function showReminder(msg) {
   document.getElementById("main-content").innerHTML = `
@@ -97,13 +99,13 @@ function setupForm(car) {
     window.location.href = "index.html";
   });
 
-  form.addEventListener("submit", e => {
+  form.addEventListener("submit", async e => {
     e.preventDefault();
-
+  
     const rentalDays = parseInt(document.getElementById("rentalDays").value);
     const totalPrice = rentalDays * car.pricePerDay;
     const orderDate = new Date().toISOString().split("T")[0];
-
+  
     const data = {
       vin: car.vin,
       customerName: form.customerName.value,
@@ -115,27 +117,19 @@ function setupForm(car) {
       totalPrice,
       orderDate
     };
-
-    const baseURL = window.location.origin.includes("localhost")
-      ? "http://localhost:3001"
-      : "";
-
-    fetch(`${baseURL}/api/reservations`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(resp => {
-        alert(resp.message || "Reservation successful!");
-        form.reset();
-        localStorage.removeItem("reservationForm");
-      })
-      .catch(err => {
-        console.error("Reservation error:", err);
-        alert("Failed to place reservation.");
-      });
+  
+    const { error } = await supabase.from('orders').insert(data);
+    if (error) {
+      console.error("Supabase insert error:", error);
+      alert("Failed to place reservation.");
+      return;
+    }
+  
+    alert("Reservation successful!");
+    form.reset();
+    localStorage.removeItem("reservationForm");
   });
+  
 
   validate();
 }
