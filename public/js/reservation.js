@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!vin) return showReminder("You have not selected any car yet. Please choose one from the homepage.");
 
   const supabaseUrl = 'https://vpvptaencowltpzjbygn.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6...';  // ←安全に取り扱ってください
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZwdnB0YWVuY293bHRwempieWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc5ODMxMjMsImV4cCI6MjA2MzU1OTEyM30.grB7PKIDE-5OqkYu1eIhFLQkYndSLy-t00wBLrstb7I'; // ←あなたのキー
   const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
   const { data: car, error } = await supabase
