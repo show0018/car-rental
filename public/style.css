@@ -251,3 +251,7 @@ body {
 #reservation-form button[type="submit"]:hover {
   background-color: #00349c;
 }
+.product.unavailable {
+  opacity: 0.6;
+  pointer-events: none; /* クリック防止 */
+}

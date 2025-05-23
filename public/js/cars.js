@@ -107,9 +107,16 @@ function displayCars(carList = null) {
 `;
 
 
-    const reserveBtn = document.createElement("button");
-    reserveBtn.textContent = "Reserve";
-    if (car.available === 0) reserveBtn.disabled = true;
+  const reserveBtn = document.createElement("button");
+  reserveBtn.textContent = "Reserve";
+
+  if (!car.available) {
+    reserveBtn.disabled = true;
+    reserveBtn.style.backgroundColor = "#ccc";
+    reserveBtn.style.cursor = "not-allowed";
+    reserveBtn.textContent = "Unavailable";
+    card.classList.add("unavailable"); // ✅ これを追加
+  }
 
     reserveBtn.addEventListener("click", () => {
       localStorage.setItem("lastVin", car.vin); 
