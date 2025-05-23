@@ -98,7 +98,7 @@ function displayCars(carList = null) {
 
    card.innerHTML = `
   <img src="${car.image}" alt="${car.carModel}" width="160" height="100" />
-  <h3>./${car.brand} ${car.carModel}</h3>
+  <h3>${car.brand} ${car.carModel}</h3>
   <p>Type: ${car.carType} | Year: ${car.yearOfManufacture}</p>
   <p>Fuel: ${car.fuelType} | Mileage: ${car.mileage}</p>
   <p>Availability: ${car.available > 0 ? car.available : "Out of stock"}</p>
