@@ -139,10 +139,23 @@ function setupForm(car) {
       created_at: orderDate
     };
   
-    const { error } = await supabaseClient.from('orders').insert(data);
-    if (error) {
-      console.error("Supabase insert error:", error);
+    // ✅ 予約情報を追加
+    const { error: insertError } = await supabaseClient.from('orders').insert(data);
+    if (insertError) {
+      console.error("Supabase insert error:", insertError);
       alert("Failed to place reservation.");
+      return;
+    }
+  
+    // ✅ 車のステータスを「利用不可」に更新
+    const { error: updateError } = await supabaseClient
+      .from('cars')
+      .update({ available: false })
+      .eq('vin', car.vin);
+  
+    if (updateError) {
+      console.error("Failed to update car availability:", updateError);
+      alert("Reservation saved but failed to mark car as unavailable.");
       return;
     }
   
@@ -150,8 +163,6 @@ function setupForm(car) {
     form.reset();
     localStorage.removeItem("reservationForm");
   });
-  
-  
 
   validate();
 }
