@@ -210,3 +210,12 @@ body {
   opacity: 0.6;
   pointer-events: none; /* クリック防止 */
 }
+
+.suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #eee;
+}
