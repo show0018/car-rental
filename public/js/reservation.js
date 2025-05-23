@@ -21,7 +21,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!car.available) return showReminder(`${car.brand} ${car.carModel} is no longer available.`);
 
-  showCarAndForm(car);
+  const mappedCar = {
+    vin: car.vin,
+    brand: car.brand,
+    carModel: car.car_model,
+    carType: car.car_type,
+    yearOfManufacture: car.year_of_manufacture,
+    fuelType: car.fuel_type,
+    mileage: car.mileage,
+    pricePerDay: car.price_per_day,
+    image: car.image,
+    available: car.available,
+    description: car.description,
+  };
+  showCarAndForm(mappedCar);
+  
 });
 
 
@@ -106,18 +120,24 @@ function setupForm(car) {
   
     const rentalDays = parseInt(document.getElementById("rentalDays").value);
     const totalPrice = rentalDays * car.pricePerDay;
-    const orderDate = new Date().toISOString().split("T")[0];
+    const orderDate = new Date().toISOString();
+  
+    function calculateEndDate(start, days) {
+      const date = new Date(start);
+      date.setDate(date.getDate() + Number(days));
+      return date.toISOString().split("T")[0];
+    }
   
     const data = {
       vin: car.vin,
-      customerName: form.customerName.value,
-      phoneNumber: form.phoneNumber.value,
+      customer_name: form.customerName.value,
+      phone_number: form.phoneNumber.value,
       email: form.email.value,
-      driversLicenseNumber: form.driversLicenseNumber.value,
-      startDate: form["start-date"].value,
-      rentalPeriod: rentalDays,
-      totalPrice,
-      orderDate
+      drivers_license_number: form.driversLicenseNumber.value,
+      start_date: form["start-date"].value,
+      end_date: calculateEndDate(form["start-date"].value, rentalDays),
+      total_price: totalPrice,
+      created_at: orderDate
     };
   
     const { error } = await supabaseClient.from('orders').insert(data);
@@ -131,6 +151,7 @@ function setupForm(car) {
     form.reset();
     localStorage.removeItem("reservationForm");
   });
+  
   
 
   validate();
